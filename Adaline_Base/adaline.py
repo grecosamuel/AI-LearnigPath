@@ -38,14 +38,21 @@ class Adaline(object):
         self : object
 
         """
+        # Initialize weights and costs
         self.w_ =  numpy.zeros(X.shape[1] + 1)
         self.cost_ = []
 
         # Iterate epochs
         for i in range(self.iter):
             output = self.net_input(X)
+            
+            # Check the error
             errors = (y - output)
+
+            # Update weights
             self.w_[1:] += self.eta * X.T.dot(errors)
+
+            # Update bias with SSE
             self.w_[0] += self.eta * errors.sum()
             cost = (errors ** 2).sum() / 2.0
             self.cost_.append(cost)
